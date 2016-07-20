@@ -3,6 +3,7 @@ package game;
 
 import game.players.Alien;
 import game.players.Ninja;
+import game.util.Statistics;
 
 import java.util.SplittableRandom;
 
@@ -12,15 +13,23 @@ import java.util.SplittableRandom;
 
 public class NVA {
 
+    //Next 7 lines are what are called GLOBAL VARIABLES
     private String name = "";
     private String playerType = "";
     private String weapon = "";
-    //private String battleLocation;
     private String location = "";
     private String special = "";
-    //private Role role = new Role();
     private Ninja n = new Ninja();
     private Alien a = new Alien();
+
+
+//    nva.setName();
+//    nva.setPlayerType();
+//    nva.setWeapon();
+//    nva.setLocation();
+//    nva.setSpecial();
+//    nva.startBattle();
+
 
     public void setName() {
         System.out.println("What is your name?");
@@ -62,6 +71,7 @@ public class NVA {
                 System.out.println("The alien claw is  close range, but deals more damage.");
             } else if (playerType.equalsIgnoreCase("alien") && weapon.equalsIgnoreCase("laser")) {
                 System.out.println("The alien laser does less damage, but keeps you at a safer range.");
+
             } else {
                 System.out.println("Invalid weapon.");
             }
@@ -103,6 +113,10 @@ public class NVA {
         }
     }
     public void startBattle(){
+        Statistics stats = new Statistics();
+        int wincount = 1;
+        int count = 1;                      // added for P.8  *****REMOVE ME IF WRONG
+
 
             if(playerType.equalsIgnoreCase("ninja")) {
                 n.setPlayerName(name);
@@ -119,6 +133,8 @@ public class NVA {
                 a.setBattleLocation(location);
                 a.setBattleLocation(special);
                 n.setPlayerName("Mr Fuzzy Jingles");
+
+
                 n.setPlayerWeapon("star");
                 n.setBattleLocation(location);
                 n.setSpecialGift(special);
@@ -129,30 +145,60 @@ public class NVA {
         System.out.println("Time to play!");
         System.out.println(" ");
         while(a.getHealth() > 0 && n.getHealth() > 0) {
+
             int alienDamageReceived = a.alienDamageReceivedCalculator(n.ninjaDamageGivenCalculator());
             System.out.println(n.getPlayerName()+" attacks with the "+n.getPlayerWeapon()+" and deals "+alienDamageReceived+" points of damage.");
             int ninjaDamageReceived = n.ninjaDamageReceivedCalculator(a.alienDamageGivenCalculator());
             System.out.println(a.getPlayerName()+" attacks with the "+a.getPlayerWeapon()+" and deals "+ninjaDamageReceived+" points of damage.");
             System.out.println(n.getPlayerName()+" Heath: "+n.getHealth()+"  vs  "+a.getPlayerName()+" Health: "+a.getHealth());
+            stats.recordAttack(alienDamageReceived, ninjaDamageReceived); // *******added for NVA.P9
 
+
+            System.out.println("**********************************************");
+            if(n.getHealth() > 0) {
+                System.out.println(n.getPlayerName()+" Wins!!!");
+                System.out.println("Health Remaining: "+n.getPlayerName());
+            } else if(a.getHealth() > 0) {
+                System.out.println(a.getPlayerName()+" Wins!!!");
+                System.out.println("Health Remaining: "+a.getPlayerName());
+            } else {
+                System.out.println("Everyone Died!!!");
+                System.out.println(n.getPlayerName()+" and "+a.getPlayerName()+" both lose.");
+            }
+
+            System.out.println("**********************************************");
             System.out.println(" ");
             System.out.println("Press [enter] to take another turn.");
-            String turn = PlayNVA.scanner.nextLine();
-            System.out.println(" ");
-        }
+            String getturn = PlayNVA.scanner.nextLine();                               //added get to turn on this line
+            System.out.println("attacks in game>" + count);                            //added this is your on this line
+            System.out.println("attacks won>" + wincount);
+            count ++; //"points of damage.";                                            // added for P.8  *****REMOVE ME IF WRONG
+            wincount ++;
+            System.out.println("average damage ninja given>" + ninjaDamageReceived/count);
+            System.out.println("average damage alien given>" + alienDamageReceived/count);
 
-        System.out.println("**********************************************");
-        if(n.getHealth() > 0) {
-            System.out.println(n.getPlayerName()+" Wins!!!");
-            System.out.println("Health Remaining: "+n.getPlayerName());
-        } else if(a.getHealth() > 0) {
-            System.out.println(a.getPlayerName()+" Wins!!!");
-            System.out.println("Health Remaining: "+a.getPlayerName());
-        } else {
-            System.out.println("Everyone Died!!!");
-            System.out.println(n.getPlayerName()+" and "+a.getPlayerName()+" both lose.");
         }
-        System.out.println("**********************************************");
+        System.out.println("Total attacks: " + stats.getTotalAttacks());
+        System.out.println("Total ties: " + stats.getTies());
+        System.out.println("Total wins by ninja:" +stats.getNinjaWins());
+        System.out.println("Ninja's attack average: " +stats.getNinjaAverageDamageDealt());
+        System.out.println("Total wins by alien:" + stats.getAlienWins());
+        System.out.println("Alien's attack average: "+stats.getAlienAverageDamageDealt());
+
+
+
+//        System.out.println("**********************************************");
+//        if(n.getHealth() > 0) {
+//            System.out.println(n.getPlayerName()+" Wins!!!");
+//            System.out.println("Health Remaining: "+n.getPlayerName());
+//        } else if(a.getHealth() > 0) {
+//            System.out.println(a.getPlayerName()+" Wins!!!");
+//            System.out.println("Health Remaining: "+a.getPlayerName());
+//        } else {
+//            System.out.println("Everyone Died!!!");
+//            System.out.println(n.getPlayerName()+" and "+a.getPlayerName()+" both lose.");
+//        }
+//        System.out.println("**********************************************");
     }
     }
 

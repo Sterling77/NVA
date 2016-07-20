@@ -22,6 +22,7 @@ public class PlayNVA {
         nva.setLocation();
         nva.setSpecial();
         nva.startBattle();
+
     }
 }
 

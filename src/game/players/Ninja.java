@@ -6,12 +6,12 @@ import game.util.RandInt;
  */
 public class Ninja extends Player {
 
-    private int bladeMaxDamage = 5;
+    private int bladeMaxDamage = 10;
     private int bladeRangeProtection = 2;
     private int starMaxDamage = 3;
-    private int starRangeProtection = 4;
+    private int starRangeProtection = 20;
     private int maxHitsPerRole = 4;
-    private int accuracy = 4;
+    private int accuracy = 12;
     private int forestProtection =6;
 
     private int getRandomBladeDamage (){
@@ -65,7 +65,7 @@ public class Ninja extends Player {
                 Damage = 1;
             }
         }
-        extDamage = extDamage * Damage;
+        extDamage= extDamage * Damage;
         Double d = new Double(extDamage);
         return d.intValue() ;
     }
@@ -89,14 +89,21 @@ public class Ninja extends Player {
     public int ninjaDamageReceivedCalculator(int rawDamageDealt) {
         int damage = 1;
         int protection = 0;
+        int randNum = RandInt.randomInt(0,100);
 
         if(getPlayerWeapon().equalsIgnoreCase("blade")) {
-            damage = rawDamageDealt - (getRandomBladeProtection () * getRandomAccuracy ());
+            damage = rawDamageDealt - (getRandomBladeProtection () * getRandomAccuracy () * getForestProtection());
         } else {
-            damage = rawDamageDealt - (getRandomStarProtection () * getRandomAccuracy ());
+            damage = rawDamageDealt - (getRandomStarProtection () * getRandomAccuracy () * getForestProtection());
         }
+
         if (rawDamageDealt > protection + getForestProtection()) {   // missed  protection statement which subtracted damgae dlt protectroy
             damage = rawDamageDealt - (protection + getForestProtection());
+        }
+
+        rawDamageDealt += this.getSharkAttack();
+        if (rawDamageDealt > protection){
+            damage = rawDamageDealt - protection;
         }
         this.removeHealth(damage);
         return damage;
