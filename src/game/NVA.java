@@ -1,6 +1,6 @@
 package game;
 
-
+import java.util.ArrayList;
 import game.players.Alien;
 import game.players.Ninja;
 import game.util.Statistics;
@@ -146,6 +146,7 @@ public class NVA {
         System.out.println(" ");
         while(a.getHealth() > 0 && n.getHealth() > 0) {
 
+
             int alienDamageReceived = a.alienDamageReceivedCalculator(n.ninjaDamageGivenCalculator());
             System.out.println(n.getPlayerName()+" attacks with the "+n.getPlayerWeapon()+" and deals "+alienDamageReceived+" points of damage.");
             int ninjaDamageReceived = n.ninjaDamageReceivedCalculator(a.alienDamageGivenCalculator());
@@ -168,8 +169,8 @@ public class NVA {
 
             System.out.println("**********************************************");
             System.out.println(" ");
-            System.out.println("Press [enter] to take another turn.");
-            String getturn = PlayNVA.scanner.nextLine();                               //added get to turn on this line
+//            System.out.println("Press [enter] to take another turn.");
+//            String getturn = PlayNVA.scanner.nextLine();                               //added get to turn on this line
             System.out.println("attacks in game>" + count);                            //added this is your on this line
             System.out.println("attacks won>" + wincount);
             count ++; //"points of damage.";                                            // added for P.8  *****REMOVE ME IF WRONG
