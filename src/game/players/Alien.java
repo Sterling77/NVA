@@ -71,6 +71,14 @@ public class Alien extends Player {
         return d.intValue();
     }
 
+    public int correctAnswers() {
+        int correctAnswer =0;
+        if(getUser().equals("correct")) {
+            for (i =0; i< correctAnswer; i++);
+        } return correctAnswer;
+    }
+
+
     public int alienDamageGivenCalculator() {
         int damage = 0;
         //clawMaxDamage = getRandomClawDamage();
