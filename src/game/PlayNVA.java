@@ -11,7 +11,10 @@ import java.util.Scanner;
 public class PlayNVA {
     public static Scanner scanner = new Scanner(System.in);
 
+    private static NVA nva;
+
     public static void main(String[] args) {
+
         NVA nva = new NVA();
 
 

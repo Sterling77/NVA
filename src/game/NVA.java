@@ -23,12 +23,6 @@ public class NVA {
     private Alien a = new Alien();
 
 
-//    nva.setName();
-//    nva.setPlayerType();
-//    nva.setWeapon();
-//    nva.setLocation();
-//    nva.setSpecial();
-//    nva.startBattle();
 
 
     public void setName() {
